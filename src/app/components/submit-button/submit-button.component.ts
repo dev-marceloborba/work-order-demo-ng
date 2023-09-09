@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,11 +7,16 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <button
+      [disabled]="!disabled"
       type="submit"
-      class="text-white font-bold py-1 px-2 mr-2 rounded bg-green-600"
+      class="text-white font-bold py-1 px-2 mr-2 rounded"
+      [ngClass]="disabled ? 'bg-blue-500' : 'bg-gray-400 cursor-not-allowed'"
     >
       Salvar
     </button>
   `,
 })
-export class SubmitButtonComponent {}
+export class SubmitButtonComponent {
+  @Input()
+  disabled = false;
+}

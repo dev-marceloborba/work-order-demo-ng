@@ -51,7 +51,7 @@ import { WorkOrderService } from '../../services/work-order.service';
         formControlName="target"
         type="date"
       />
-      <app-submit-button />
+      <app-submit-button [disabled]="isValid()" />
     </form>
   `,
 })
@@ -88,6 +88,10 @@ export class WorkOrderFormComponent implements OnChanges {
         target: this.workOrder?.target.toString(),
       });
     }
+  }
+
+  isValid() {
+    return this.workOrderForm.valid;
   }
 
   onSubmit() {
