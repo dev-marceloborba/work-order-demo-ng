@@ -10,7 +10,10 @@ import { WorkOrderStatistics } from '../work-orders/models/work-order-statistics
   imports: [CommonModule, WorkOrderInfoCardComponent],
   template: `<div>
     <h2 class="page-title">Dashboard</h2>
-    <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div
+      *ngIf="!!workOrderStatistcs"
+      class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+    >
       <div class="col-span-1">
         <app-work-order-info-card
           title="Ordens em execução"
@@ -38,11 +41,10 @@ export class DashboardComponent implements OnInit {
   workOrderStatistcs!: WorkOrderStatistics;
 
   ngOnInit(): void {
-    this.workOrderStatisticsService.data$.subscribe({
+    this.workOrderStatisticsService.getStatistics().subscribe({
       next: (value) => {
         this.workOrderStatistcs = value;
       },
     });
-    this.workOrderStatisticsService.getStatistics();
   }
 }
