@@ -33,8 +33,8 @@ import { ButtonDirective } from 'src/app/directives/button/button.directive';
         <tr *ngFor="let workOrder of workOrders">
           <td>{{ workOrder.id }}</td>
           <td>{{ workOrder.equipmentName }}</td>
-          <td>{{ workOrder.createdAt }}</td>
-          <td>{{ workOrder.target }}</td>
+          <td>{{ workOrder.createdAt | date }}</td>
+          <td>{{ workOrder.target | date }}</td>
           <td>
             <app-work-order-status [status]="workOrder.workOrderStatus" />
           </td>
