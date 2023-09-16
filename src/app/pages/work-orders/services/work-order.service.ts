@@ -16,7 +16,7 @@ export class WorkOrderService {
 
   findAll() {
     this.httpClient
-      .get<WorkOrder[]>(`${this.baseUrl}/v1/work-orders`)
+      .get<WorkOrder[]>(`${this.baseUrl}/api/v1/work-orders`)
       .subscribe({
         next: (workOrders) => this.dataSubject.next(workOrders),
       });
@@ -24,7 +24,7 @@ export class WorkOrderService {
 
   create(workOrder: CreateWorkOrderModel) {
     this.httpClient
-      .post(`${this.baseUrl}/v1/work-orders`, workOrder)
+      .post(`${this.baseUrl}/api/v1/work-orders`, workOrder)
       .subscribe({
         next: () => this.findAll(),
       });

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorkOrdersTableComponent } from './components/work-orders-table/work-orders-table.component';
-import { ButtonComponent } from 'src/app/components/button/button.component';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { WorkOrderFormComponent } from './components/work-order-form/work-order-form.component';
+import { ButtonDirective } from 'src/app/directives/button/button.directive';
 
 @Component({
   selector: 'app-work-orders',
@@ -11,14 +11,14 @@ import { WorkOrderFormComponent } from './components/work-order-form/work-order-
   imports: [
     CommonModule,
     WorkOrdersTableComponent,
-    ButtonComponent,
     ModalComponent,
     WorkOrderFormComponent,
+    ButtonDirective,
   ],
   template: `<div>
     <div class="flex items-center justify-between mb-2">
       <h2 class="font-bold text-2xl">Ordens de serviço</h2>
-      <app-button (onClick)="openModal()">Nova ordem de serviço</app-button>
+      <button mButton (onClick)="openModal()">Nova ordem de serviço</button>
     </div>
     <app-work-orders-table />
     <app-modal
