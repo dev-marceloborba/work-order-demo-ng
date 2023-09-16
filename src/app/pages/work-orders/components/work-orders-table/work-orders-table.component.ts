@@ -6,6 +6,7 @@ import { WorkOrderFormComponent } from '../work-order-form/work-order-form.compo
 import { WorkOrderService } from '../../services/work-order.service';
 import { WorkOrderStatusComponent } from '../work-order-status/work-order-status.component';
 import { ButtonDirective } from 'src/app/directives/button/button.directive';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-work-orders-table',
@@ -16,6 +17,7 @@ import { ButtonDirective } from 'src/app/directives/button/button.directive';
     WorkOrderFormComponent,
     WorkOrderStatusComponent,
     ButtonDirective,
+    RouterModule,
   ],
   template: `
     <table>
@@ -39,6 +41,9 @@ import { ButtonDirective } from 'src/app/directives/button/button.directive';
             <app-work-order-status [status]="workOrder.workOrderStatus" />
           </td>
           <td>
+            <button mButton [routerLink]="['/work-orders/', workOrder.id]">
+              Detalhes
+            </button>
             <button mButton (click)="handleOpenModal(workOrder)">Editar</button>
             <button mButton [color]="'danger'">Excluir</button>
           </td>

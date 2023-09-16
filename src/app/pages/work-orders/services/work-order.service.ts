@@ -29,4 +29,10 @@ export class WorkOrderService {
         next: () => this.findAll(),
       });
   }
+
+  findById(id: string) {
+    return this.httpClient.get<WorkOrder>(
+      `${this.baseUrl}/api/v1/work-orders/${id}`
+    );
+  }
 }
