@@ -45,7 +45,13 @@ import { RouterModule } from '@angular/router';
               Detalhes
             </button>
             <button mButton (click)="handleOpenModal(workOrder)">Editar</button>
-            <button mButton [color]="'danger'">Excluir</button>
+            <button
+              mButton
+              [color]="'danger'"
+              (click)="removeWorkOrder(workOrder)"
+            >
+              Excluir
+            </button>
           </td>
         </tr>
       </tbody>
@@ -82,5 +88,9 @@ export class WorkOrdersTableComponent implements OnInit {
 
   closeModal() {
     this.isModalOpen = false;
+  }
+
+  removeWorkOrder({ id }: WorkOrder) {
+    this.workOrderService.remove(id);
   }
 }

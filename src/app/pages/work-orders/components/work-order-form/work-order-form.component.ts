@@ -95,8 +95,10 @@ export class WorkOrderFormComponent implements OnChanges {
   }
 
   onSubmit() {
-    this.workOrderService.create({
-      name: this.workOrderForm.get('equipmentName')?.value!,
+    this.workOrderService.save({
+      id: this.workOrder?.id,
+      workOrderStatus: this.workOrder?.workOrderStatus,
+      equipmentName: this.workOrderForm.get('equipmentName')?.value!,
       description: this.workOrderForm.get('description')?.value!,
       target: new Date(this.workOrderForm.get('target')?.value!),
     });

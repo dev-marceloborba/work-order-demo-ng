@@ -18,7 +18,7 @@ import { ButtonDirective } from 'src/app/directives/button/button.directive';
   template: `<div>
     <div class="flex items-center justify-between mb-2">
       <h2 class="page-title">Ordens de serviço</h2>
-      <button mButton (onClick)="openModal()">Nova ordem de serviço</button>
+      <button mButton (click)="openModal()">Nova ordem de serviço</button>
     </div>
     <app-work-orders-table />
     <app-modal

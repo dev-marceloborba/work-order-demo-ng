@@ -30,9 +30,36 @@ export class WorkOrderService {
       });
   }
 
+  save(workOrder: Partial<WorkOrder>) {
+    // update
+    if (workOrder.id) {
+      this.httpClient
+        .put(`${this.baseUrl}/api/v1/work-orders/${workOrder.id}`, workOrder)
+        .subscribe({
+          next: () => this.findAll(),
+        });
+    }
+    // create
+    else {
+      this.httpClient
+        .post(`${this.baseUrl}/api/v1/work-orders`, workOrder)
+        .subscribe({
+          next: () => this.findAll(),
+        });
+    }
+  }
+
   findById(id: string) {
     return this.httpClient.get<WorkOrder>(
       `${this.baseUrl}/api/v1/work-orders/${id}`
     );
+  }
+
+  remove(id: number) {
+    this.httpClient
+      .delete(`${this.baseUrl}/api/v1/work-orders/${id}`)
+      .subscribe({
+        next: () => this.findAll(),
+      });
   }
 }
