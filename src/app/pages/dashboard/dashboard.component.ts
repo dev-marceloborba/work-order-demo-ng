@@ -7,6 +7,7 @@ import { WorkOrderInfoCardComponent } from './components/work-order-info-card/wo
   standalone: true,
   imports: [CommonModule, WorkOrderInfoCardComponent],
   template: `<div>
+    <h2 class="page-title">Dashboard</h2>
     <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       <div class="col-span-1">
         <app-work-order-info-card title="Ordens em execução" [value]="1" />

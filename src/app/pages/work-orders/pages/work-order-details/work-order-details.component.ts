@@ -10,14 +10,35 @@ import { WorkOrderStatusLabelPipe } from '../../pipes/work-order-status-label.pi
   selector: 'app-work-order-details',
   standalone: true,
   imports: [CommonModule, RouterModule, WorkOrderStatusLabelPipe],
-  template: `<div>
-    <h2>Detalhes da ordem</h2>
-    <div *ngIf="workOrder$ | async as workOrder">
-      <p>{{ workOrder.equipmentName }}</p>
-      <p>{{ workOrder.description }}</p>
-      <p>{{ workOrder.createdAt | date }}</p>
-      <p>{{ workOrder.target | date }}</p>
-      <p>{{ workOrder.workOrderStatus | workOrderStatusLabel }}</p>
+  template: `<div class="bg-slate-200 rounded shadow py-4 px-2">
+    <h2 class="page-title">Detalhes da ordem</h2>
+    <div *ngIf="workOrder$ | async as workOrder" class="grid gap-4 grid-cols-2">
+      <div class="col-span-1">
+        <div class="block">
+          <h6>Equipamento</h6>
+          <p>{{ workOrder.equipmentName }}</p>
+        </div>
+        <div class="block mt-2">
+          <h6>Status</h6>
+          <p>{{ workOrder.workOrderStatus | workOrderStatusLabel }}</p>
+        </div>
+      </div>
+      <div class="col-span-1">
+        <div class="block">
+          <h6>Data de criação</h6>
+          <p>{{ workOrder.createdAt | date }}</p>
+        </div>
+        <div class="block mt-2">
+          <h6>Data alvo</h6>
+          <p>{{ workOrder.target | date }}</p>
+        </div>
+      </div>
+      <div class="col-span-1">
+        <div class="block">
+          <h6>Descrição</h6>
+          <p>{{ workOrder.description }}</p>
+        </div>
+      </div>
     </div>
   </div> `,
 })
