@@ -4,6 +4,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { WorkOrdersComponent } from './pages/work-orders/work-orders.component';
 import { WorkOrderService } from './pages/work-orders/services/work-order.service';
 import { WorkOrderDetailsComponent } from './pages/work-orders/pages/work-order-details/work-order-details.component';
+import { WorkOrderStatisticsService } from './pages/work-orders/services/work-order-statistics.service';
 
 export const routes: Routes = [
   {
@@ -13,6 +14,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    providers: [WorkOrderStatisticsService],
   },
   {
     path: 'work-orders',
