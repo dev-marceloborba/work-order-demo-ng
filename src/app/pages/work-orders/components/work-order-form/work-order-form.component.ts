@@ -85,7 +85,7 @@ export class WorkOrderFormComponent implements OnChanges {
       this.workOrderForm.patchValue({
         equipmentName: this.workOrder?.equipmentName,
         description: this.workOrder?.description,
-        target: this.workOrder?.target.toString(),
+        target: this.formatDate(this.workOrder.target.toString()),
       });
     }
   }
@@ -100,5 +100,15 @@ export class WorkOrderFormComponent implements OnChanges {
       description: this.workOrderForm.get('description')?.value!,
       target: new Date(this.workOrderForm.get('target')?.value!),
     });
+  }
+
+  private formatDate(date: string) {
+    const d = new Date(date);
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    const year = d.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
   }
 }
