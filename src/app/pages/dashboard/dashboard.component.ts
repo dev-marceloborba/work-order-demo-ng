@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { WorkOrderInfoCardComponent } from './components/work-order-info-card/work-order-info-card.component';
 import { WorkOrderStatisticsService } from '../work-orders/services/work-order-statistics.service';
 import { WorkOrderStatistics } from '../work-orders/models/work-order-statistics.model';
+import { LoaderComponent } from 'src/app/ui/loader/loader.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, WorkOrderInfoCardComponent],
+  imports: [CommonModule, WorkOrderInfoCardComponent, LoaderComponent],
   template: `<div>
     <h2 class="page-title">Dashboard</h2>
     <div
@@ -33,6 +34,7 @@ import { WorkOrderStatistics } from '../work-orders/models/work-order-statistics
         />
       </div>
     </div>
+    <app-loader [show]="!workOrderStatistcs" />
   </div> `,
 })
 export class DashboardComponent implements OnInit {

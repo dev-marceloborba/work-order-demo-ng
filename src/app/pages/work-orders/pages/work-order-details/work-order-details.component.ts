@@ -5,47 +5,59 @@ import { WorkOrderService } from '../../services/work-order.service';
 import { Observable } from 'rxjs';
 import { WorkOrder } from '../../models/work-order.model';
 import { WorkOrderStatusLabelPipe } from '../../pipes/work-order-status-label.pipe';
+import { LoaderComponent } from 'src/app/ui/loader/loader.component';
+import { ButtonDirective } from 'src/app/directives/button/button.directive';
 
 @Component({
   selector: 'app-work-order-details',
   standalone: true,
-  imports: [CommonModule, RouterModule, WorkOrderStatusLabelPipe],
+  imports: [
+    CommonModule,
+    RouterModule,
+    WorkOrderStatusLabelPipe,
+    LoaderComponent,
+    ButtonDirective,
+  ],
   template: `<div class="bg-slate-200 rounded shadow py-4 px-2">
-    <h2 class="page-title">Detalhes da ordem</h2>
-    <div *ngIf="workOrder$ | async as workOrder" class="grid gap-4 grid-cols-2">
-      <div class="col-span-1">
-        <div class="block">
-          <h6>Equipamento</h6>
-          <p>{{ workOrder.equipmentName }}</p>
+      <h2 class="page-title">Detalhes da ordem</h2>
+      <div
+        *ngIf="workOrder$ | async as workOrder"
+        class="grid gap-4 grid-cols-2"
+      >
+        <div class="col-span-1">
+          <div class="block">
+            <h6>Equipamento</h6>
+            <p>{{ workOrder.equipmentName }}</p>
+          </div>
+          <div class="block mt-2">
+            <h6>Status</h6>
+            <p>{{ workOrder.workOrderStatus | workOrderStatusLabel }}</p>
+          </div>
         </div>
-        <div class="block mt-2">
-          <h6>Status</h6>
-          <p>{{ workOrder.workOrderStatus | workOrderStatusLabel }}</p>
+        <div class="col-span-1">
+          <div class="block">
+            <h6>Data de criação</h6>
+            <p>{{ workOrder.createdAt | date }}</p>
+          </div>
+          <div class="block mt-2">
+            <h6>Data alvo</h6>
+            <p>{{ workOrder.target | date }}</p>
+          </div>
+        </div>
+        <div class="col-span-1">
+          <div class="block">
+            <h6>Descrição</h6>
+            <p>{{ workOrder.description }}</p>
+          </div>
         </div>
       </div>
-      <div class="col-span-1">
-        <div class="block">
-          <h6>Data de criação</h6>
-          <p>{{ workOrder.createdAt | date }}</p>
-        </div>
-        <div class="block mt-2">
-          <h6>Data alvo</h6>
-          <p>{{ workOrder.target | date }}</p>
-        </div>
-      </div>
-      <div class="col-span-1">
-        <div class="block">
-          <h6>Descrição</h6>
-          <p>{{ workOrder.description }}</p>
-        </div>
-      </div>
+      <app-loader [show]="!workOrder$" />
     </div>
-  </div> `,
+    <button mButton class="mt-2">Finalizar ordem</button> `,
 })
 export class WorkOrderDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private workOrderService: WorkOrderService
   ) {}
 
