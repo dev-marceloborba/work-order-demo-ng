@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { WorkOrderService } from '../../services/work-order.service';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { WorkOrder } from '../../models/work-order.model';
 import { WorkOrderStatusLabelPipe } from '../../pipes/work-order-status-label.pipe';
 import { LoaderComponent } from 'src/app/ui/loader/loader.component';
@@ -53,7 +53,9 @@ import { ButtonDirective } from 'src/app/directives/button/button.directive';
       </div>
       <app-loader [show]="!workOrder$" />
     </div>
-    <button mButton class="mt-2">Finalizar ordem</button> `,
+    <button mButton class="mt-2" (click)="finishOrder()">
+      Finalizar ordem
+    </button> `,
 })
 export class WorkOrderDetailsComponent implements OnInit {
   constructor(
@@ -63,8 +65,21 @@ export class WorkOrderDetailsComponent implements OnInit {
 
   workOrder$ = new Observable<WorkOrder>();
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
+  getWorkOrder(id: number) {
     this.workOrder$ = this.workOrderService.findById(id);
+  }
+
+  ngOnInit(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id')!);
+    this.getWorkOrder(id);
+  }
+
+  finishOrder() {
+    this.workOrder$.pipe(map((value) => value.id)).subscribe({
+      next: (id) => {
+        this.workOrderService.finishOrder(id);
+        this.getWorkOrder(id);
+      },
+    });
   }
 }

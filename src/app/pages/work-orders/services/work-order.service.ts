@@ -49,7 +49,7 @@ export class WorkOrderService {
     }
   }
 
-  findById(id: string) {
+  findById(id: number) {
     return this.httpClient.get<WorkOrder>(
       `${this.baseUrl}/api/v1/work-orders/${id}`
     );
@@ -58,6 +58,14 @@ export class WorkOrderService {
   remove(id: number) {
     this.httpClient
       .delete(`${this.baseUrl}/api/v1/work-orders/${id}`)
+      .subscribe({
+        next: () => this.findAll(),
+      });
+  }
+
+  finishOrder(id: number) {
+    this.httpClient
+      .put(`${this.baseUrl}/api/v1/work-orders/finish/${id}`, {})
       .subscribe({
         next: () => this.findAll(),
       });
