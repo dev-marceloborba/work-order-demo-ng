@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { ButtonDirective } from 'src/app/directives/button/button.directive';
 import { AuthenticationService } from './services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,14 @@ import { AuthenticationService } from './services/authentication.service';
           label="Senha"
           formControlName="password"
         />
-        <button mButton [disabled]="!isValid()" type="submit">Entrar</button>
+        <button
+          mButton
+          [disabled]="!isValid()"
+          type="submit"
+          class="mt-2 w-full"
+        >
+          Entrar
+        </button>
       </form>
     </div>
   `,
@@ -38,7 +46,8 @@ export class LoginComponent {
   loginForm!: FormGroup;
   constructor(
     private fb: FormBuilder,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       userName: ['', Validators.required],
@@ -54,8 +63,11 @@ export class LoginComponent {
     console.log(this.loginForm.value);
     const { userName, password } = this.loginForm.value;
     this.authenticationService.auth(userName, password).subscribe({
-      next: (value: any) => {
+      next: (value) => {
         console.log(value);
+        const { token, expiration } = value;
+        this.authenticationService.login(token, expiration);
+        this.router.navigate(['/dashboard']);
       },
     });
   }

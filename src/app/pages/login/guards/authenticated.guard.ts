@@ -5,8 +5,8 @@ import { AuthenticationService } from '../services/authentication.service';
 export const authenticatedGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const service = inject(AuthenticationService);
-  var alreadAuthenticated = false;
-  if (alreadAuthenticated) {
+  var isLogged = service.isLogged();
+  if (isLogged) {
     return router.navigate(['work-orders']);
   } else {
     return true;

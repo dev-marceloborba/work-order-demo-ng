@@ -6,7 +6,7 @@ import { WorkOrderService } from './pages/work-orders/services/work-order.servic
 import { WorkOrderDetailsComponent } from './pages/work-orders/pages/work-order-details/work-order-details.component';
 import { WorkOrderStatisticsService } from './pages/work-orders/services/work-order-statistics.service';
 import { LoginComponent } from './pages/login/login.component';
-import { AuthenticationService } from './pages/login/services/authentication.service';
+// import { AuthenticationService } from './pages/login/services/authentication.service';
 import { authGuard } from './pages/login/guards/auth.guard';
 import { authenticatedGuard } from './pages/login/guards/authenticated.guard';
 
@@ -15,6 +15,7 @@ export const routes: Routes = [
     path: '',
     component: HomeComponent,
     canActivate: [authGuard],
+    providers: [],
   },
   {
     path: 'dashboard',
@@ -37,7 +38,6 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    providers: [AuthenticationService],
     canActivate: [authenticatedGuard],
   },
 ];

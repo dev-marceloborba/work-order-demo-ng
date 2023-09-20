@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthenticationService } from 'src/app/pages/login/services/authentication.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -25,9 +26,27 @@ import { RouterModule } from '@angular/router';
             >Ordens de serviço</a
           >
         </li>
+        <li>
+          <button
+            class="px-4 py-2 text-gray-300 hover:bg-gray-600 rounded-lg"
+            (click)="logout()"
+          >
+            Logout
+          </button>
+        </li>
       </ul>
     </nav>
   </aside> `,
   styleUrls: ['./sidebar.styles.scss'],
 })
-export class SidebarComponent {}
+export class SidebarComponent {
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {}
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['']);
+  }
+}

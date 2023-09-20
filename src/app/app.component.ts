@@ -1,7 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './ui/sidebar/sidebar.component';
+import { AuthenticationService } from './pages/login/services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,12 @@ import { SidebarComponent } from './ui/sidebar/sidebar.component';
     </main>
   </div>`,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'work-order-demo-ng';
+
+  constructor(private authenticationService: AuthenticationService) {}
+
+  ngOnInit(): void {
+    this.authenticationService.retrieveFromLocalStorage();
+  }
 }
